@@ -23,7 +23,7 @@
 # VARIABLES
 #
 
-site_name="tpv"
+site_name="projectname"
 
 # Grab the command flags passed as arguments
 options=$@
