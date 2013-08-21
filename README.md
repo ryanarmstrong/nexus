@@ -1,6 +1,5 @@
 The Absent Admin
 ================
-Authors: @ryanarmx and @gmperryx
 
 About
 -----
