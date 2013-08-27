@@ -43,3 +43,7 @@ www/*
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# IDE generated files #
+#######################
+*.sublime*
