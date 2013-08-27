@@ -11,4 +11,4 @@ core = 7.x
 ; ------------
 ; Drupal 7.x. Requires the `core` property to be set to 7.x.
 projects[drupal][type] = core
-projects[drupal][version] = 7.22
+projects[drupal][version] = 7.23
