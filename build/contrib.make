@@ -1,21 +1,23 @@
 ; ----------------
 ; Core Makefile for: Project Name
-; GitLab: http://idzgit.or.intel.com/[project]
-; Contains: This make file should contain Drupal.org contrib modules/themes ONLY
+; GitHub: https://github.com/username/project
+; Contains: This make file should contain Drupal.org contrib modules, themes, and patches ONLY
 ; ----------------
-
+ 
 api = 2
 core = 7.x
-
+ 
 ; Modules
 ; --------
-; No modules included
-
+; Include any Drupal.org modules here.
+; projects[admin_menu][version] = 3.0-rc4
+; projects[admin_menu][type] = "module"
+; projects[admin_menu][subdir] = "contrib"
+ 
 ; Themes
 ; --------
-; No themes included
-
+; Include any Drupal.org themes here.
+ 
 ; Libraries
 ; ---------
-
-; No libraries included
+; Include any libraries that the above modules or themes require here.

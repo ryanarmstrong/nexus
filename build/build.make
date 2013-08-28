@@ -1,27 +1,30 @@
 ; ----------------
-; Custom Makefile for: Project Name
-; GitLab: http://idzgit.or.intel.com/[project]
+; Build Makefile for: Project Name
+; GitHub: https://github.com/username/project
 ; Contains: This make file should contain custom modules, themes, features, and libraries ONLY
 ; ----------------
-
+ 
 api = 2
 core = 7.x
-
-includes[] = tpv.core.make
-includes[] = tpv.contrib.make
-
+ 
+; Include the core and contrib makefiles
+includes[] = core.make
+includes[] = contrib.make
+ 
+; Include any modules, themes, and libraries that are outside of Drupal.org.
+ 
 ; Modules
 ; --------
-; No modules were included
-
+; Include any modules hosted outside of Drupal.org here.
+ 
 ; Features
 ; ---------
-; No features were included
-
+; Include any features hosted outside of Drupal.org here.
+ 
 ; Themes
 ; --------
-; No themes were included
-
+; Include any themes hosted outside of Drupal.org here.
+ 
 ; Libraries
 ; ---------
-; No libraries were included
+; Include libaries required by the above modules and themes
