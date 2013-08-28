@@ -38,7 +38,7 @@ function backup_site {
   # Temp move files directory
   echo '- Backing up files directory.'
   if [[ -d "${base_dir}/${webroot}/sites/default/files" ]] ; then
-    sudo mv ${base_dir}/${webroot}/sites/default/files ${base_dir}/files
+    mv ${base_dir}/${webroot}/sites/default/files ${base_dir}/files
   fi
 }
 
@@ -79,7 +79,7 @@ function remove_site {
   fi
 
   # Delete the webroot
-  sudo rm -rf ${webroot}
+  rm -rf ${webroot}
   echo "- Removing ${webroot}"
 }
 
