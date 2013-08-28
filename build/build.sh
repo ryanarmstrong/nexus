@@ -135,6 +135,6 @@ echo "- Touching all files to update modified time."
 find ${base_dir}/${webroot} -exec touch {} \;
 
 # Now compile any SASS Compass based themes
-compile_sass
+#compile_sass
 
 echo ""
