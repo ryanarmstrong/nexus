@@ -23,8 +23,6 @@
 # VARIABLES
 #
 
-site_name="projectname"
-
 # Grab the command flags passed as arguments
 options=$@
 arguments=($options)
@@ -92,7 +90,7 @@ if [[ -d "${base_dir}/${webroot}" ]] ; then
 fi
 
 echo ""
-echo "--- Building ${site_name} ---"
+echo "--- Building Site ---"
 
 # Download Drupal core, contrib and custom packages. This need to be aware of the -dev flag
 echo "- Downloading Drupal core, contrib, and custom via Drush Make."
@@ -103,11 +101,11 @@ if [ "$development" == '1' ];
     echo "- Downloading custom modules/themes in development mode."
     echo ""
     # Run the MAKEFILE with the --working-copy flag to grab the .git directory
-    drush make ${base_dir}/build/${site_name}.custom.make ${webroot} --working-copy
+    drush make ${base_dir}/build/build.make ${webroot} --working-copy
   else
     echo "- Downloading custom modules/themes in production mode."
     echo ""
-    drush make ${base_dir}/build/${site_name}.custom.make ${webroot}
+    drush make ${base_dir}/build/build.make ${webroot}
 fi
 
 echo ""
