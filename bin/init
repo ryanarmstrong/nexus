@@ -38,5 +38,12 @@ done
 rm -rf .git
 git init
 
+# Do the initial commit
+git add -A
+git commit -m "Initial commit."
+
 # Build the Drupal site
 ./bin/build -webroot=${webroot}
+
+# Remind users to update their .gitignore if they used a non-default webroot path
+echo "IMPORTANT: If you used a webroot other then the default, make sure to edit .gitignore and change the webroot."
