@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# init.sh
+#
+# This script builds a new local environment to start your project with
+
+# Remove the .git folder created by the clone and reinitialize Git
+rm -rf .git
+git init
+
+# Build the Drupal site
+./bin/build
