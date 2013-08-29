@@ -4,8 +4,30 @@
 #
 # This script runs all PHPUnit and BeHat tests
 
-ls
-pwd
+# VARIABLES
+# Grab the command flags passed as arguments
+options=$@
+arguments=($options)
+index=0
+
+# Set flag defaults
+webroot="webroot"
+
+# Set passed flags
+for argument in $options
+  do
+    # Incrementing index
+    index=`expr $index + 1`
+
+    # The conditions
+    case $argument in
+      -webroot)
+        webroot=${arguments[index]} ;;
+    esac
+done
+
+# Change into the webroot
+cd ${webroot}
 
 # Enable simpletest module
 drush en --yes simpletest

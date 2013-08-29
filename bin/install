@@ -78,5 +78,5 @@ sleep 4
 if [ "$travis" == '0' ];
   then
     # Run tests
-    ./bin/test
+    ./bin/test -webroot=${webroot}
 fi
