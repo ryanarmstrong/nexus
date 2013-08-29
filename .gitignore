@@ -1,7 +1,7 @@
 # Drupal #
 ##########
 # Ignore the webroot
-www
+webroot
 
 # Compiled source #
 ###################
