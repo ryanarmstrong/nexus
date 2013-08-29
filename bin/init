@@ -3,10 +3,37 @@
 # init script
 #
 # This script cleans up and prepares the repo for your project, then builds the site.
+#
+# FLAG OPTIONS
+#
+# -webroot somevalue
+#   The default webroot is 'www' but you can specifiy a different directory if
+#   desired.
+
+# Grab the command flags passed as arguments
+options=$@
+arguments=($options)
+index=0
+
+# Set flag defaults
+webroot="webroot"
+
+# Set passed flags
+for argument in $options
+  do
+    # Incrementing index
+    index=`expr $index + 1`
+
+    # The conditions
+    case $argument in
+      -webroot)
+        webroot=${arguments[index]} ;;
+    esac
+done
 
 # Remove the .git folder created by the clone and reinitialize Git
 rm -rf .git
 git init
 
 # Build the Drupal site
-./bin/build
+./bin/build -webroot=${webroot}
