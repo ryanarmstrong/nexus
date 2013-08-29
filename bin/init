@@ -4,6 +4,9 @@
 #
 # This script cleans up and prepares the repo for your project, then builds the site.
 #
+# WARNING: Only run this once! Running again will delete your .git and start you over
+#          from scratch. If you want to rebuild the site again, run build instead.
+#
 # FLAG OPTIONS
 #
 # -webroot somevalue
