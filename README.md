@@ -19,7 +19,7 @@ Clone the repo then run `./bin/init`. Make sure to setup your local environment 
 
 #### Commands
 
-    [TO-DO] ./bin/install   # Runs init to clean up and prep, then installs drush, runs build, starts drush runserver and then runs test.
-    ./bin/init        # Cleans up and prepares the repo for your project, then builds the site.
-    ./bin/build       # Downloads Drupal, and the modules, themes, and libraries listed in the makefiles.
-    [TO-DO] ./bin/test        # Runs all PHPUnit tests and BeHat tests
+    ./bin/install  # Runs init, installs drush, runs build, starts drush runserver and then runs test.
+    ./bin/init     # Cleans up and prepares the repo for your project, then builds the site.
+    ./bin/build    # Downloads Drupal, and the modules, themes, and libraries listed in the makefiles.
+    ./bin/test     # Runs all PHPUnit tests and BeHat tests
