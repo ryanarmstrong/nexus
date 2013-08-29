@@ -12,7 +12,7 @@ before_script:
   - pyrus channel-discover pear.drush.org
   - pyrus install drush/drush
   - phpenv rehash
-  - ./build/build.sh
+  - ./bin/build
   - cd www
   - drush si standard --db-url=mysql://root:@localhost/drupal --yes
   - drush en --yes simpletest
