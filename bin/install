@@ -44,14 +44,18 @@ done
 ./bin/init -webroot=${webroot}
 
 # Install Drush
-pear channel-discover pear.drush.org
-pear install drush/drush
-
-# Run Travis specific commands
 if [ "$travis" == '1' ];
   then
+    # Install Drush
+    pyrus channel-discover pear.drush.org
+    pyrus install drush/drush
+
     # Refresh the PHP path for Travis
     phpenv rehash
+  else
+    # Install Drush
+    pear channel-discover pear.drush.org
+    pear install drush/drush
 fi
 
 # Create the database
