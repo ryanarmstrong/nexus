@@ -13,9 +13,8 @@
 #   The default webroot is 'www' but you can specifiy a different directory if
 #   desired.
 #
-# VARIABLES
-#
 
+# VARIABLES
 # Grab the command flags passed as arguments
 options=$@
 arguments=($options)
