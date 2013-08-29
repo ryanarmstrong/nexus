@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# build.sh
+# build script
 #
-# This script builds the project by using Drush make and symbolic linking.
+# This script builds Drupal, and the modules, themes, and libraries listed in the makefiles.
 #
 # FLAG OPTIONS
 #
@@ -29,7 +29,7 @@ arguments=($options)
 index=0
 
 # Set flag defaults
-webroot="www"
+webroot="webroot"
 development=0
 force=0
 
