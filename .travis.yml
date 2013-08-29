@@ -7,6 +7,6 @@ mysql:
   username: root
   encoding: utf8
 
-before_script: ./bin/install
+before_script: ./bin/install -travis
 
 script: ./bin/test
