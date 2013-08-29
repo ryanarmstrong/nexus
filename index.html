@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="The Absent Admin : Build Drupal based sites easily." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>The Absent Admin</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ryanarmstrong/the-absent-admin">View on GitHub</a>
+
+          <h1 id="project_title">The Absent Admin</h1>
+          <h2 id="project_tagline">Build Drupal based sites easily.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ryanarmstrong/the-absent-admin/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ryanarmstrong/the-absent-admin/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="the-absent-admin" class="anchor" href="#the-absent-admin"><span class="octicon octicon-link"></span></a>The Absent Admin</h1>
+
+<p><a href="https://travis-ci.org/ryanarmstrong/the-absent-admin"><img src="https://travis-ci.org/ryanarmstrong/the-absent-admin.png?branch=master" alt="Build Status"></a></p>
+
+<h2>
+<a name="about" class="anchor" href="#about"><span class="octicon octicon-link"></span></a>About</h2>
+
+<p><strong>The Absent Admin</strong> is a base project to build your Drupal projects on top of using Travis CI to handle CI bash scripting and <a href="http://drupal.org/project/drush">Drush</a> makefiles to download and build a project, as well as providing scripts to compile any <a href="http://compass-style.org/">Compass</a> projects.</p>
+
+<h3>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<h4>
+<a name="standalone-macos-x-and-linux-with-drush" class="anchor" href="#standalone-macos-x-and-linux-with-drush"><span class="octicon octicon-link"></span></a>Standalone MacOS X and Linux with Drush</h4>
+
+<p>Clone the repo then run <code>./bin/install</code>.</p>
+
+<h4>
+<a name="mamp" class="anchor" href="#mamp"><span class="octicon octicon-link"></span></a>MAMP</h4>
+
+<p>Clone the repo then run <code>./bin/init</code>. Make sure to setup your local environment to point to the webroot, the navigate to the site and run the Drupal installation.</p>
+
+<h4>
+<a name="commands" class="anchor" href="#commands"><span class="octicon octicon-link"></span></a>Commands</h4>
+
+<p>The following commands are available to help with setup, development, and testing. Make sure to read the commemnts in each script file to learn about the various flags and options you can use with them.</p>
+
+<pre><code>./bin/install  # Runs init, installs drush, runs build, starts drush runserver and then runs test.
+./bin/init     # Cleans up and prepares the repo for your project, then builds the site.
+./bin/build    # Downloads Drupal, and the modules, themes, and libraries listed in the makefiles.
+./bin/test     # Runs all PHPUnit tests and BeHat tests
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">The Absent Admin maintained by <a href="https://github.com/ryanarmstrong">ryanarmstrong</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
