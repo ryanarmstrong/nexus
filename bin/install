@@ -40,8 +40,8 @@ for argument in $options
     esac
 done
 
-# Run init to get things ready
-./bin/init
+# Run init to get things ready and pass the webroot
+./bin/init -webroot=${webroot}
 
 # Install Drush
 pear channel-discover pear.drush.org
