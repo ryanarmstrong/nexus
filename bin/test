@@ -4,6 +4,9 @@
 #
 # This script runs all PHPUnit and BeHat tests
 
+ls
+pwd
+
 # Enable simpletest module
 drush en --yes simpletest
 
