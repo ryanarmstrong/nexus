@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# init.sh
+# init script
 #
-# This script builds a new local environment to start your project with
+# This script cleans up and prepares the repo for your project, then builds the site.
 
 # Remove the .git folder created by the clone and reinitialize Git
 rm -rf .git
