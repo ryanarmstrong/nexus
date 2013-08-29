@@ -47,6 +47,7 @@ done
 pear channel-discover pear.drush.org
 pear install drush/drush
 
+# Run Travis specific commands
 if [ "$travis" == '1' ];
   then
     # Refresh the PHP path for Travis
@@ -67,5 +68,9 @@ drush cc all
 drush runserver --server=builtin 8080 &
 sleep 4
 
-# Run tests
-./bin/test
+# Only run test if not Travis
+if [ "$travis" == '0' ];
+  then
+    # Run tests
+    ./bin/test
+fi
