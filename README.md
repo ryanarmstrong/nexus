@@ -9,5 +9,7 @@ About
 
 ### Installation
 
+Clone the repo then run `./bin/init`. Make sure to setup your local environment to point to the webroot, the navigate to the site and run the Drupal installation. In the future, support for using `drush runserver` will be added. For now you must handle that.
+
     ./bin/init   # Cleans up and prepares the repo for your project, then builds the site.
     ./bin/build  # Downloads Drupal, and the modules, themes, and libraries listed in the makefiles.
