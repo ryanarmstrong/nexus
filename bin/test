@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# test script
+#
+# This script runs all PHPUnit and BeHat tests
+
+# Enable simpletest module
+drush en --yes simpletest
+
+# Set the simpletest_verbose variabel to false. We don't need to log this. Travis handles that.
+drush vset --yes simpletest_verbose FALSE
+
+# Run all tests
+drush test-run -l http://127.0.0.1:8080
