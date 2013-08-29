@@ -36,4 +36,4 @@ drush en --yes simpletest
 drush vset --yes simpletest_verbose FALSE
 
 # Run your tests
-drush test-run -l DrupalHTTPRequestTestCase http://127.0.0.1:8080 # Example. Use drush test-run to see all available.
+drush test-run DrupalHTTPRequestTestCase http://127.0.0.1:8080 # Example. Use drush test-run to see all available.
