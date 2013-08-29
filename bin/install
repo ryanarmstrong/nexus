@@ -40,6 +40,8 @@ for argument in $options
     esac
 done
 
+echo "trace"
+
 # Run init to get things ready and pass the webroot
 ./bin/init -webroot=${webroot}
 
