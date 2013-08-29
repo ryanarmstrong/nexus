@@ -52,7 +52,7 @@ for argument in $options
 done
 
 # Include Functions in build_functions.sh
-. $(git rev-parse --show-toplevel)/scripts/build_functions.sh
+. $(git rev-parse --show-toplevel)/bin/inc/build_functions.sh
 cd ${base_dir}
 
 #
@@ -101,11 +101,11 @@ if [ "$development" == '1' ];
     echo "- Downloading custom modules/themes in development mode."
     echo ""
     # Run the MAKEFILE with the --working-copy flag to grab the .git directory
-    drush make ${base_dir}/build/build.make ${webroot} --working-copy
+    drush make ${base_dir}/makefiles/build.make ${webroot} --working-copy
   else
     echo "- Downloading custom modules/themes in production mode."
     echo ""
-    drush make ${base_dir}/build/build.make ${webroot}
+    drush make ${base_dir}/makefiles/build.make ${webroot}
 fi
 
 echo ""
