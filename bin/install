@@ -40,12 +40,15 @@ for argument in $options
     esac
 done
 
+echo "Tracer 1"
+
 # Run init to get things ready and pass the webroot
 ./bin/init -webroot=${webroot}
 
 # Install Drush
 if [ "$travis" == '1' ];
   then
+    echo "Tracer 2"
     # Install Drush
     pyrus channel-discover pear.drush.org
     pyrus install drush/drush
