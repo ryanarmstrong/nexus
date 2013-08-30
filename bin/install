@@ -43,10 +43,12 @@ for argument in $options
 done
 
 # Install Drush
+echo "--- Installing Drush ---"
 pear channel-discover pear.drush.org
 pear install drush/drush
+echo ""
 
-# Install Drush
+# Build the site
 if [ "$travis" == '1' ];
   then
     # Refresh the PHP path for Travis
