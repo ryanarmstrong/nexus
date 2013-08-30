@@ -42,21 +42,25 @@ for argument in $options
     esac
 done
 
-# Install Drush
-echo "--- Installing Drush ---"
-pear channel-discover pear.drush.org
-pear install drush/drush
-echo ""
-
 # Build the site
 if [ "$travis" == '1' ];
   then
+    # Install Drush using pyrus
+    echo "--- Installing Drush ---"
+    pyrus channel-discover pear.drush.org
+    pyrus install drush/drush
+    echo ""
+
     # Refresh the PHP path for Travis
     phpenv rehash
 
     # Run build
     ./bin/build
   else
+    # Install Drush
+    pear channel-discover pear.drush.org
+    pear install drush/drush
+
     # Run init to get things ready and pass the webroot this will also run build
     ./bin/init -webroot=${webroot}
 fi
