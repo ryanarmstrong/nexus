@@ -1,7 +1,8 @@
-# Drupal #
+# Ignore Built Directories #
 ##########
-# Ignore the webroot
 webroot
+vendor
+bin/webunit
 
 # Compiled source #
 ###################
