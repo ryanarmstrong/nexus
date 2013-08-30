@@ -4,6 +4,9 @@
 #
 # This script runs all PHPUnit and BeHat tests
 
+cd $(git rev-parse --show-toplevel)
+PATH=$PWD/bin:$PATH
+
 # VARIABLES
 # Grab the command flags passed as arguments
 options=$@
