@@ -19,6 +19,9 @@
 #   Skips all promts and assumes a 'confirm' action.
 #
 
+cd $(git rev-parse --show-toplevel)
+PATH=$PWD/bin:$PATH
+
 #
 # VARIABLES
 #
@@ -91,6 +94,11 @@ fi
 
 echo ""
 echo "--- Building Site ---"
+
+# Download dependencies listed in composer.json
+echo "- Downloading dependencies via Composer."
+composer.phar install
+echo ""
 
 # Download Drupal core, contrib and custom packages. This need to be aware of the -dev flag
 echo "- Downloading Drupal core, contrib, and custom via Drush Make."

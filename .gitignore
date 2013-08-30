@@ -1,7 +1,17 @@
-# Drupal #
-##########
-# Ignore the webroot
+# Ignore Built Directories #
+############################
 webroot
+vendor
+
+# Ignore everything in bin but the needed scripts
+bin/*
+!bin/install
+!bin/init
+!bin/build
+!bin/test
+!bin/inc
+
+composer.lock
 
 # Compiled source #
 ###################
@@ -47,3 +57,4 @@ Thumbs.db
 # IDE generated files #
 #######################
 *.sublime*
+*~
