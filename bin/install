@@ -40,22 +40,18 @@ for argument in $options
 done
 
 # Install Drush
+pear channel-discover pear.drush.org
+pear install drush/drush
+
+# Install Drush
 if [ "$travis" == '1' ];
   then
-    # Install Drush using pyrus
-    pyrus channel-discover pear.drush.org
-    pyrus install drush/drush
-
     # Refresh the PHP path for Travis
     phpenv rehash
 
     # Run build
     ./bin/build
   else
-    # Install Drush
-    pear channel-discover pear.drush.org
-    pear install drush/drush
-
     # Run init to get things ready and pass the webroot this will also run build
     ./bin/init -webroot=${webroot}
 fi
