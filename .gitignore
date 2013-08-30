@@ -1,5 +1,5 @@
 # Ignore Built Directories #
-##########
+############################
 webroot
 vendor
 
