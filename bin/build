@@ -56,7 +56,6 @@ done
 
 # Include Functions in build_functions.sh
 . $(git rev-parse --show-toplevel)/bin/inc/build_functions.sh
-cd ${base_dir}
 
 #
 # Main Script
@@ -67,7 +66,7 @@ echo "--- Preparing to build ---"
 echo "- Webroot is set to: ${webroot}."
 
 # If the given webroot already exists, remove it.
-if [[ -d "${base_dir}/${webroot}" ]] ; then
+if [[ -d "${webroot}" ]] ; then
   # If user forced yes, skip the prompt.
   if [ "$force" == '1' ];
     then
@@ -109,11 +108,11 @@ if [ "$development" == '1' ];
     echo "- Downloading custom modules/themes in development mode."
     echo ""
     # Run the MAKEFILE with the --working-copy flag to grab the .git directory
-    drush make ${base_dir}/makefiles/build.make ${webroot} --working-copy
+    drush make makefiles/build.make ${webroot} --working-copy
   else
     echo "- Downloading custom modules/themes in production mode."
     echo ""
-    drush make ${base_dir}/makefiles/build.make ${webroot}
+    drush make makefiles/build.make ${webroot}
 fi
 
 echo ""
@@ -140,7 +139,7 @@ restore_site
 #       the files updates their modified date, which gets them recached, resolving
 #       this issue.
 echo "- Touching all files to update modified time."
-find ${base_dir}/${webroot} -exec touch {} \;
+find ${webroot} -exec touch {} \;
 
 # Now compile any SASS Compass based themes
 #compile_sass
