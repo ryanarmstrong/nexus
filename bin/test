@@ -29,14 +29,7 @@ for argument in $options
     esac
 done
 
-# Change into the webroot
-cd ${webroot}
-
-# Enable simpletest module
-drush en --yes simpletest
-
-# Set the simpletest_verbose variabel to false. We don't need to log this. Travis handles that.
-drush vset --yes simpletest_verbose FALSE
-
-# Run your tests
-drush test-run DrupalHTTPRequestTestCase http://127.0.0.1:8080 # Example. Use drush test-run to see all available.
+# Run tests
+# TO-DO:
+#   - Add phpspec test
+#   - Add BeHat test
