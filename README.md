@@ -22,7 +22,7 @@ Clone the repo then run `./bin/install`. If you have any permissions issues, try
 
 ### MAMP
 
-Clone the repo then run `./bin/init`. Make sure to setup your local environment to point to the webroot, the navigate to the site and run the Drupal installation.
+Clone the repo then run `./bin/init`. Make sure to setup your local environment to point to the webroot, then navigate to the site and run the Drupal installation.
 
 ### Commands
 
