@@ -1,10 +1,10 @@
-#The Absent Admin
+#Nexus
 
 ## About
 
-**The Absent Admin** is a base project to build your Drupal projects on top of using Travis CI to handle CI, bash scripting and [Drush](http://drupal.org/project/drush) makefiles to download and build a project.
+**Nexus** is a base project to build your Drupal projects on top of using Travis CI to handle CI, bash scripting and [Drush](http://drupal.org/project/drush) makefiles to download and build a project.
 
-[![Build Status](https://travis-ci.org/ryanarmstrong/the-absent-admin.png?branch=master)](https://travis-ci.org/ryanarmstrong/the-absent-admin)
+[![Build Status](https://travis-ci.org/ryanarmstrong/nexus.png?branch=master)](https://travis-ci.org/ryanarmstrong/nexus)
 
 ## Installation
 
