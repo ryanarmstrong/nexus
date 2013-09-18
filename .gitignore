@@ -10,6 +10,7 @@ bin/*
 !bin/build
 !bin/test
 !bin/inc
+!bin/build.make
 
 composer.lock
 
