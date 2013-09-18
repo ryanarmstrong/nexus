@@ -1,30 +1,32 @@
 ; ----------------
 ; Build Makefile for: Project Name
 ; GitHub: https://github.com/username/project
-; Contains: This make file should contain custom modules, themes, features, and libraries ONLY
+; Contains: This make file should contain core as well as modules, themes, features, and libraries.
 ; ----------------
  
 api = 2
+; Drupal 7.x. Requires the `core` property to be set to 7.x.
 core = 7.x
  
-; Include the core and contrib makefiles
-includes[] = core.make
-includes[] = contrib.make
+; Core project
+; ------------
+projects[drupal][type] = core
+projects[drupal][version] = 7.23
  
-; Include any modules, themes, and libraries that are outside of Drupal.org.
+; Include any modules, themes, and libraries that are hosted remotely.
  
 ; Modules
 ; --------
-; Include any modules hosted outside of Drupal.org here.
+; Include any modules that are hosted remotely.
  
 ; Features
 ; ---------
-; Include any features hosted outside of Drupal.org here.
+; Include any features that are hosted remotely.
  
 ; Themes
 ; --------
-; Include any themes hosted outside of Drupal.org here.
+; Include any themes that are hosted remotely.
  
 ; Libraries
 ; ---------
-; Include libaries required by the above modules and themes
+; Include libaries required by the above projects.
