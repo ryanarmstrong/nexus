@@ -108,11 +108,11 @@ if [ "$development" == '1' ];
     echo "- Downloading custom modules/themes in development mode."
     echo ""
     # Run the MAKEFILE with the --working-copy flag to grab the .git directory
-    drush make makefiles/build.make ${webroot} --working-copy
+    drush make bin/build.make ${webroot} --working-copy
   else
     echo "- Downloading custom modules/themes in production mode."
     echo ""
-    drush make makefiles/build.make ${webroot}
+    drush make bin/build.make ${webroot}
 fi
 
 echo ""
@@ -126,15 +126,18 @@ components_symlink features ${features_dir}
 # Create the symbolic link to the custom themes directory
 components_symlink themes ${themes_dir}
 
+# Create the symbolic link to the sites directory
+components_symlink sites ${sites_dir}
+
+# Create the symbolic link to the sites directory
+components_symlink translations ${translations_dir}
+
 # Copying any libraries that couldn't be included via Drush Make.
 components_copy libraries ${libraries_dir}
 
-# Now bring the settings.php and files directory back, restoring the site.
-restore_site
-
 # Recursively touch all files to update the modified time.
 # Note: The motified date is preserved by Drush Make which causes issues with APC
-#       on the dev servers. This results in PHP thinking that it has loaded all
+#       on the some servers. This results in PHP thinking that it has loaded all
 #       of its includes but they aren't actually in the cache. Touching all of
 #       the files updates their modified date, which gets them recached, resolving
 #       this issue.

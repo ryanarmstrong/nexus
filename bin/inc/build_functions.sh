@@ -12,35 +12,16 @@ base_dir=$(git rev-parse --show-toplevel)
 cd ${base_dir}
 
 # Set the needed Drupal paths
-modules_dir=${base_dir}/${webroot}/sites/all/modules
-features_dir=${base_dir}/${webroot}/sites/all/features
+modules_dir=${base_dir}/${webroot}/sites/all/modules/custom
+features_dir=${base_dir}/${webroot}/sites/all/modules/features
 themes_dir=${base_dir}/${webroot}/sites/all/themes
 libraries_dir=${base_dir}/${webroot}/sites/all/libraries
+translations_dir=${base_dir}/${webroot}/sites/all/translations
+sites_dir=${base_dir}/${webroot}/sites
 
 #
 # FUNCTIONS
 #
-
-# Function: backup_site
-#
-# Finds any settings*.php files in the webroot and moves them to the base_dir
-# for temporary backup. It also moves the files directory if detected. Both
-# will later be moved back into place by the function restore_site.
-#
-function backup_site {
-  # Temp move settings
-  for file in $(find -name settings*.php | grep -v "${base_dir}/${webroot}/sites/default/")
-  do
-    echo '- Backing up ' ${file}
-    cp -f ${file} ${base_dir}/
-  done
-
-  # Temp move files directory
-  echo '- Backing up files directory.'
-  if [[ -d "${base_dir}/${webroot}/sites/default/files" ]] ; then
-    mv ${base_dir}/${webroot}/sites/default/files ${base_dir}/files
-  fi
-}
 
 # Function: remove_site
 #
@@ -48,80 +29,9 @@ function backup_site {
 # up. After that it deletes the webroot.
 #
 function remove_site {
-  # Look for a settings.php. Ask the user if they want to backup the site if
-  # it exists.
-  if [ -a ${base_dir}/${webroot}/sites/default/settings.php ] ;
-    then
-      if [ "$force" == '1' ];
-        then
-          echo "- Backing up the current site for restoration later."
-          backup_site
-        # Otherwise ask for permission to remove the webroot.
-        else
-          echo ""
-          echo "- Would you like to backup and restore the existing site?"
-          select yn in "Yes" "No"; do
-            case $yn in
-              Yes )
-                backup_site
-                break ;;
-              No )
-                echo ""
-                echo "- Existing site deleted. Starting from scratch. Remember to clear out your database!"
-                echo ""
-                exit ;;
-            esac
-          done
-      fi
-    else
-      # Nothing to backup
-      echo "- No settings.php detected. No site to backup."
-  fi
-
   # Delete the webroot
   rm -rf ${webroot}
   echo "- Removing ${webroot}"
-}
-
-# Function: restore_site
-#
-# Finds any settings*.php files in the base_dir and moves them  back into place
-# in the webroot. If it detects a files dir in the base_dir it will also move
-# that back into place. If it detects backed up settings*.php files but no file
-# directory, it will create one. It then runs drush rr to be safe.
-#
-function restore_site {
-  # Cleanup settings.php
-  if [ -a ${base_dir}/settings.php ] ;then
-    # Restore settings files
-    for file in $(find . -name 'settings*.php')
-    do
-      echo '- Restoring ' ${file}
-      mv -f ${file} ${base_dir}/${webroot}/sites/default/
-    done
-
-    # Cleanup files directory. This is nested within the check for the settings.php
-    # So that it creates a files directory automatically if one isn't detected.
-    # This eliminates the need to create a blank files directory in the root.
-    #
-    # This wouldn't prevent Drupal from loading, but you would get an error in
-    # the status reportsaying that the files directory is missing.
-    if [[ -d "${base_dir}/files" ]] ;
-      then
-        echo "- Temporary files directory detected. Restoring."
-        mv ${base_dir}/files ${base_dir}/${webroot}/sites/default/files
-      else
-        echo "- Temporary files directory not detected. Creating an empty files directory."
-        mkdir ${base_dir}/${webroot}/sites/default/files -m 755
-    fi
-
-    # Clear cache and rebuild the registry in case things moved around
-    cd ${base_dir}/${webroot}/sites
-    echo ""
-    drush rr
-    cd ${base_dir}
-    echo ""
-  fi
 }
 
 # Function: components_symlink
@@ -137,21 +47,19 @@ function restore_site {
 function components_symlink {
   if [[ -d "${base_dir}/${1}" && ! -L "${base_dir}/${1}" ]] ; then
     if [ "$(ls -A ${base_dir}/${1})" ]; then
-      # Modules need to go into the custom directory. Create that directory and
-      # then add the path
-      if [ "$1" == "modules" ];
-        then
-          echo "- Custom modules detected. Creating a custom directory."
-          mkdir ${2}/custom
-          custom="custom/"
-        else
-          custom=""
+      # Drupal doesn't make a libraries folder on install. Create the directory
+      # if it doesn't already exist.
+      if [ ! -d "${2}" ]; then
+        echo "- ${1} folder does not exist. Creating it."
+        mkdir ${2}
       fi
-      for directory in $(find ${base_dir}/${1}/ -mindepth 1 -maxdepth 1 -type d)
+
+      # Loop through each subfolder and create a symlink for it.
+      for directory in $(find ${base_dir}/${1} -mindepth 1 -maxdepth 1)
       do
         # Create the symbolic link.
         echo "- Symbolically linking ${1}: ${directory}."
-        ln -s ${directory} ${2}/${custom}
+        ln -s ${directory} ${2}
       done
 
       # Look for any MAKEFILES and run them
@@ -192,7 +100,7 @@ function components_symlink {
 function components_copy {
   if [[ -d "${base_dir}/${1}" && ! -L "${base_dir}/${1}" ]] ; then
     if [ "$(ls -A ${base_dir}/${1})" ]; then
-      echo "- Copying ${1} that couldn't be loaded via Drush Make."
+      echo "- Copying ${1}."
       # Drupal doesn't make a libraries folder on install. Create the directory
       # if it doesn't already exist.
       if [ ! -d "${2}" ]; then
