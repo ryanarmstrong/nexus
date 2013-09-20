@@ -10,8 +10,7 @@ core = 7.x
  
 ; Core project
 ; ------------
-projects[drupal][type] = core
-projects[drupal][version] = 7.23
+projects[drupal] = 7.23
  
 ; Include any modules, themes, and libraries that are hosted remotely.
  
