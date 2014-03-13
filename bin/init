@@ -14,15 +14,11 @@
 #   desired.
 
 # Include the header
-. ${base_dir}/bin/inc/header.sh
+. bin/inc/header.sh
 
 # Remove the .git folder created by the clone and reinitialize Git
 rm -rf .git
 git init
-
-# Do the initial commit
-git add -A
-git commit -m "Initial commit."
 
 # Rename the Profile to the name of the project and update the files.
 if [[ -d "nexus" ]] ; then
@@ -31,9 +27,13 @@ if [[ -d "nexus" ]] ; then
   mv -rf ${base_dir}/${project_name}/nexus.info ${base_dir}/${project_name}/${project_name}.info
   mv -rf ${base_dir}/${project_name}/nexus.install ${base_dir}/${project_name}/${project_name}.install
   mv -rf ${base_dir}/${project_name}/nexus.profile ${base_dir}/${project_name}/${project_name}.profile
-  sed -i 's/Nexus/${human_project_name}/g' ${base_dir}/${project_name}/*.txt
-  sed -i 's/nexus/${project_name}/g' ${base_dir}/${project_name}/*.txt
+  sed -i 's/Nexus/${human_project_name}/g' ${base_dir}/${project_name}/*
+  sed -i 's/nexus/${project_name}/g' ${base_dir}/${project_name}/*
 fi
+
+# Do the initial commit
+git add -A
+git commit -m "Initial commit."
 
 echo "- Initialization complete."
 
