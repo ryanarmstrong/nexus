@@ -16,6 +16,12 @@
 # Include the header
 . bin/inc/header.sh
 
+# Don't run init if the project variables haven't been set
+if [ "$project_name" == "nexus" ] || [ "$human_project_name" == "Nexus" ] ; then
+  echo "IMPORTANT: Please set your project variables before running the init script."
+  exit
+fi
+
 # Remove the .git folder created by the clone and reinitialize Git
 rm -rf .git
 git init
