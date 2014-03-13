@@ -22,6 +22,19 @@ projects[configuration][version] = 2.x-dev
 projects[configuration][subdir] = contrib
 projects[configuration][type] = module
 
+; Development Modules
+projects[devel][version] = 1.3
+projects[devel][subdir] = contrib
+projects[devel][type] = module
+
+projects[diff][version] = 3.2
+projects[diff][subdir] = contrib
+projects[diff][type] = module
+
+projects[module_filter][version] = 2.x-dev
+projects[module_filter][subdir] = contrib
+projects[module_filter][type] = module
+
 ; Features
 ; ---------
 ; Include any features that are hosted remotely.

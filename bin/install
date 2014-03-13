@@ -15,8 +15,6 @@
 #   The default webroot is 'www' but you can specifiy a different directory if
 #   desired.
 #
-# -y
-#   Skips all promts and assumes a 'confirm' action.
 
 # Include the header
 . bin/inc/header.sh
@@ -67,7 +65,7 @@ if [ "$development" == '1' ];
     drush si ${project_name} --db-url=mysql://root:@localhost/${project_name} --yes
 
     # Enabled modules that aid in development
-    drush en devel config -y
+    drush en devel configuration_ui diff -y
   else
     echo "- Installing ${human_project_name} in production mode"
     # Download the needed modules, themes, and libraries
@@ -81,21 +79,10 @@ if [ "$development" == '1' ];
     drush si ${project_name} --db-url=mysql://root:@localhost/${project_name} --yes
 fi
 
-# Issue:  Currently the way Drupal 8 creates configuration files is with
-#         permissions that are too restrictive for CLI users, causing
-#         errors when trying to update configuration. For now we set the
-#         permissions to avoid this.
-chmod -R 777 ${webroot_dir}/sites/default/files
-chmod -R 777 ${webroot_dir}/sites/default/files/config*
-chmod -R 777 ${webroot_dir}/sites/default/files/config*/active
-chmod -R 777 ${webroot_dir}/sites/default/files/config*/active/*
-chmod -R 777 ${webroot_dir}/sites/default/files/config*/staging
-chmod -R 777 ${webroot_dir}/sites/default/files/config*/staging/*
-
-# Build theme CSS
-#echo "- Compiling theme LESS"
-#mkdir ${base_dir}/${project_name}/themes/${project_name}_theme/css
-#lessc ${base_dir}/${project_name}/themes/${project_name}_theme/less/style.less > ${base_dir}/${project_name}/themes/${project_name}_theme/css/style.css
+# Import Configuration
+drush csyn
+cd ${base_dir}
+. bin/config -import
 
 # Run tests
 echo "--- Running tests ---"
