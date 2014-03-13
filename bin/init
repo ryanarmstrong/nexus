@@ -13,29 +13,8 @@
 #   The default webroot is 'www' but you can specifiy a different directory if
 #   desired.
 
-cd $(git rev-parse --show-toplevel)
-PATH=$PWD/bin:$PATH
-
-# Grab the command flags passed as arguments
-options=$@
-arguments=($options)
-index=0
-
-# Set flag defaults
-webroot="webroot"
-
-# Set passed flags
-for argument in $options
-  do
-    # Incrementing index
-    index=`expr $index + 1`
-
-    # The conditions
-    case $argument in
-      -webroot)
-        webroot=${arguments[index]} ;;
-    esac
-done
+# Include the header
+. ${base_dir}/bin/inc/header.sh
 
 # Remove the .git folder created by the clone and reinitialize Git
 rm -rf .git
@@ -45,8 +24,21 @@ git init
 git add -A
 git commit -m "Initial commit."
 
-# Build the Drupal site
-./bin/build -webroot=${webroot}
+# Rename the Profile to the name of the project and update the files.
+if [[ -d "nexus" ]] ; then
+  echo "- Renameing profile to ${project_name}"
+  mv -rf ${base_dir}/nexus ${base_dir}/${project_name}
+  mv -rf ${base_dir}/${project_name}/nexus.info ${base_dir}/${project_name}/${project_name}.info
+  mv -rf ${base_dir}/${project_name}/nexus.install ${base_dir}/${project_name}/${project_name}.install
+  mv -rf ${base_dir}/${project_name}/nexus.profile ${base_dir}/${project_name}/${project_name}.profile
+  sed -i 's/Nexus/${human_project_name}/g' ${base_dir}/${project_name}/*.txt
+  sed -i 's/nexus/${project_name}/g' ${base_dir}/${project_name}/*.txt
+fi
+
+echo "- Initialization complete."
+
+# Install the Drupal site
+. ${base_dir}/bin/install
 
 # Remind users to update their .gitignore if they used a non-default webroot path
 echo "IMPORTANT: If you used a webroot other then the default, make sure to edit .gitignore and change the webroot."

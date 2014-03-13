@@ -2,86 +2,96 @@
 
 # install script
 #
-# This script runs init, installs drush, runs build, starts drush runserver and then runs test.
-#
+# This script runs build, starts drush runserver and then runs test.
+
 # FLAG OPTIONS
 #
-# -travis
-#   Used by Travis to run some commands that it needs. Should not be used otherwise
+# -dev
+#   Sets the script to run in development mode. Currently this means that the
+#   script will use the development version of the Drush Make file, and will
+#   include .git directory.
 #
 # -webroot somevalue
 #   The default webroot is 'www' but you can specifiy a different directory if
 #   desired.
 #
+# -y
+#   Skips all promts and assumes a 'confirm' action.
 
-cd $(git rev-parse --show-toplevel)
-PATH=$PWD/bin:$PATH
+# Include the header
+. bin/inc/header.sh
 
-# VARIABLES
-# Grab the command flags passed as arguments
-options=$@
-arguments=($options)
-index=0
-
-# Set flag defaults
-travis=0
-webroot="webroot"
-
-# Set passed flags
-for argument in $options
-  do
-    # Incrementing index
-    index=`expr $index + 1`
-
-    # The conditions
-    case $argument in
-      -travis)
-        travis=1 ;;
-      -webroot)
-        webroot=${arguments[index]} ;;
-    esac
-done
+# Delete the webroot directory. We want a fresh start.
+if [[ -d "${webroot}" ]] ; then
+  echo "- Removing ${webroot}"
+  rm -rf ${webroot_dir}
+fi
 
 # Build the site
-if [ "$travis" == '1' ];
-  then
-    # Install Drush using pyrus
-    echo "--- Installing Drush ---"
-    pyrus channel-discover pear.drush.org
-    pyrus install drush/drush
-    echo ""
+echo "--- Building Site ---"
+echo "- Webroot is set to: ${webroot}."
 
-    # Refresh the PHP path for Travis
-    phpenv rehash
-
-    # Run build
-    ./bin/build
-  else
-    # Install Drush
-    pear channel-discover pear.drush.org
-    pear install drush/drush
-
-    # Run init to get things ready and pass the webroot this will also run build
-    ./bin/init -webroot=${webroot}
+# Download dependencies listed in composer.json
+echo "- Downloading dependencies via Composer."
+if [ ! -f /tmp/foo.txt ]; then
+    curl -sS https://getcomposer.org/installer | php
 fi
+
+php composer.phar install
+
+# Download Drupal core, contrib and custom packages. This need to be aware of the -dev flag
+echo "- Downloading Drupal core, contrib, and custom via Drush Make."
 
 # Create the database
-mysql -e 'create database drupal;'
+echo "- Creating ${human_project_name} database"
+mysql -e "drop database ${project_name};create database ${project_name};"
 
 # Run Drush site install
-cd ${webroot}
-drush si standard --db-url=mysql://root:@localhost/drupal --yes
-
-# Clear the cache
-drush cc all
-
-# Start up the drush server
-drush runserver --server=builtin 8080 &
-sleep 4
-
-# Only run test if not Travis
-if [ "$travis" == '0' ];
+if [ "$development" == '1' ];
   then
-    # Run tests
-    ./bin/test -webroot=${webroot}
+    echo "- Installing ${human_project_name} in developer mode"
+    # Download Drupal core and contrib
+    drush make ${profile_dir}/build.make ${webroot} --working-copy -y
+
+    # Create the symbolic link to the project's profile
+    ln -s ${profile_dir} ${webroot_dir}/profiles/${project_name}
+
+    # Install the site
+    cd ${webroot_dir}
+    drush si ${project_name} --db-url=mysql://root:@localhost/${project_name} --yes
+
+    # Enabled modules that aid in development
+    drush en devel config -y
+  else
+    echo "- Installing ${human_project_name} in production mode"
+    # Download the needed modules, themes, and libraries
+    drush make ${profile_dir}/build.make ${webroot} -y
+
+    # Create the symbolic link to the project's profile
+    ln -s ${profile_dir} ${webroot_dir}/profiles/${project_name}
+
+    # Install the site
+    cd ${webroot_dir}
+    drush si ${project_name} --db-url=mysql://root:@localhost/${project_name} --yes
 fi
+
+# Issue:  Currently the way Drupal 8 creates configuration files is with
+#         permissions that are too restrictive for CLI users, causing
+#         errors when trying to update configuration. For now we set the
+#         permissions to avoid this.
+chmod -R 777 ${webroot_dir}/sites/default/files
+chmod -R 777 ${webroot_dir}/sites/default/files/config*
+chmod -R 777 ${webroot_dir}/sites/default/files/config*/active
+chmod -R 777 ${webroot_dir}/sites/default/files/config*/active/*
+chmod -R 777 ${webroot_dir}/sites/default/files/config*/staging
+chmod -R 777 ${webroot_dir}/sites/default/files/config*/staging/*
+
+# Build theme CSS
+#echo "- Compiling theme LESS"
+#mkdir ${base_dir}/${project_name}/themes/${project_name}_theme/css
+#lessc ${base_dir}/${project_name}/themes/${project_name}_theme/less/style.less > ${base_dir}/${project_name}/themes/${project_name}_theme/css/style.css
+
+# Run tests
+echo "--- Running tests ---"
+cd ${base_dir}
+. bin/test

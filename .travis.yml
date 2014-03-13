@@ -3,7 +3,7 @@ php:
   - "5.5"
 
 mysql:
-  database: drupal
+  database: nexus
   username: root
   encoding: utf8
 

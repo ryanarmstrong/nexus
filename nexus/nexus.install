@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Nexus install profile.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function nexus_install() {
+  // Set the configuration directory to a place outside of the webroot.
+  variable_set('configuration_config_path', '../configuration');
+}

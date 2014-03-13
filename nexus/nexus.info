@@ -1,0 +1,17 @@
+name = Nexus
+description = The profile for Nexus.
+core = 7.x
+theme = bartik
+
+; -----------------------------------------------------------------------------
+;                                  Modules
+; -----------------------------------------------------------------------------
+
+; Core
+; dependencies[] = example
+
+; Contrib
+dependencies[] = configuration
+
+; Custom
+; dependencies[] = example

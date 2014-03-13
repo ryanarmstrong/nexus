@@ -4,32 +4,10 @@
 #
 # This script runs all PHPUnit and BeHat tests
 
-cd $(git rev-parse --show-toplevel)
-PATH=$PWD/bin:$PATH
-
-# VARIABLES
-# Grab the command flags passed as arguments
-options=$@
-arguments=($options)
-index=0
-
-# Set flag defaults
-webroot="webroot"
-
-# Set passed flags
-for argument in $options
-  do
-    # Incrementing index
-    index=`expr $index + 1`
-
-    # The conditions
-    case $argument in
-      -webroot)
-        webroot=${arguments[index]} ;;
-    esac
-done
+base_dir=$(git rev-parse --show-toplevel)
+cd ${base_dir}
 
 # Run tests
-# TO-DO:
-#   - Add phpspec test
-#   - Add BeHat test
+
+# Run Story BDD tests via BeHat
+bin/behat
