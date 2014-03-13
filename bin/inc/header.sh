@@ -30,7 +30,7 @@ arguments=($options)
 index=0
 
 # Project variables
-project_name=$(git rev-parse --show-toplevel)
+project_name=basename `git rev-parse --show-toplevel`
 human_project_name="Nexus"
 webroot="webroot"
 
