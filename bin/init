@@ -22,20 +22,26 @@ git init
 
 # Rename the Profile to the name of the project and update the files.
 if [[ -d "nexus" ]] ; then
-  echo "- Renameing profile to ${project_name}"
-  mv -rf ${base_dir}/nexus ${base_dir}/${project_name}
-  mv -rf ${base_dir}/${project_name}/nexus.info ${base_dir}/${project_name}/${project_name}.info
-  mv -rf ${base_dir}/${project_name}/nexus.install ${base_dir}/${project_name}/${project_name}.install
-  mv -rf ${base_dir}/${project_name}/nexus.profile ${base_dir}/${project_name}/${project_name}.profile
-  sed -i 's/Nexus/${human_project_name}/g' ${base_dir}/${project_name}/*
-  sed -i 's/nexus/${project_name}/g' ${base_dir}/${project_name}/*
+  # Renaming the nexus profile to the project_name
+  mv ${base_dir}/nexus ${base_dir}/${project_name}
+  
+  # Replace all instances of Nexus and nexus with the human_project_name and project_name respectively and output to a newly named file.
+  sed "s/Nexus/${human_project_name}/g" ${base_dir}/${project_name}/nexus.info > ${base_dir}/${project_name}/${project_name}.info
+  sed "s/Nexus/${human_project_name}/g;s/nexus/${project_name}/g" ${base_dir}/${project_name}/nexus.install > ${base_dir}/${project_name}/${project_name}.install
+  # sed "s/nexus/${project_name}/g" ${base_dir}/${project_name}/nexus.install > ${base_dir}/${project_name}/${project_name}.install
+  sed "s/Nexus/${human_project_name}/g" ${base_dir}/${project_name}/nexus.profile > ${base_dir}/${project_name}/${project_name}.profile
+
+  # Remove old Nexus files.
+  rm -rf ${base_dir}/${project_name}/nexus.info
+  rm -rf ${base_dir}/${project_name}/nexus.install
+  rm -rf ${base_dir}/${project_name}/nexus.profile
 fi
 
 # Do the initial commit
 git add -A
 git commit -m "Initial commit."
 
-echo "- Initialization complete."
+# echo "- Initialization complete."
 
 # Install the Drupal site
 . ${base_dir}/bin/install
