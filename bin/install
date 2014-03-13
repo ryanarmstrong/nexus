@@ -44,7 +44,13 @@ echo "- Downloading Drupal core, contrib, and custom via Drush Make."
 
 # Create the database
 echo "- Creating ${human_project_name} database"
-mysql -e "drop database ${project_name};create database ${project_name};"
+if [[ ! -z "`mysql -qfsBe "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${project_name}'" 2>&1`" ]];
+then
+  echo "- Database exists. Dropping and recreating."
+  mysql -e "drop database ${project_name};create database ${project_name};"
+else
+  mysql -e "create database ${project_name};"
+fi
 
 # Run Drush site install
 if [ "$development" == '1' ];
