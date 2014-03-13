@@ -33,7 +33,7 @@ echo "- Webroot is set to: ${webroot}."
 
 # Download dependencies listed in composer.json
 echo "- Downloading dependencies via Composer."
-if [ ! -f /tmp/foo.txt ]; then
+if [ ! -f composer.phar ]; then
     curl -sS https://getcomposer.org/installer | php
 fi
 
