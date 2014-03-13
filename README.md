@@ -39,6 +39,6 @@ The following commands are available to help with setup, development, and testin
 
 The following are the project variables you should set before running `./bin/init` or `./bin/install`.
 
-    project_name        # The machine name of the project.
+    project_name        # The machine name of the project. By default it is set to the git repo name.
     human_project_name  # The human-readable name of the project.
     webroot             # Where the built site will be run out of. Usually will be left as the default.
