@@ -28,7 +28,6 @@ if [[ -d "nexus" ]] ; then
   # Replace all instances of Nexus and nexus with the human_project_name and project_name respectively and output to a newly named file.
   sed "s/Nexus/${human_project_name}/g" ${base_dir}/${project_name}/nexus.info > ${base_dir}/${project_name}/${project_name}.info
   sed "s/Nexus/${human_project_name}/g;s/nexus/${project_name}/g" ${base_dir}/${project_name}/nexus.install > ${base_dir}/${project_name}/${project_name}.install
-  # sed "s/nexus/${project_name}/g" ${base_dir}/${project_name}/nexus.install > ${base_dir}/${project_name}/${project_name}.install
   sed "s/Nexus/${human_project_name}/g" ${base_dir}/${project_name}/nexus.profile > ${base_dir}/${project_name}/${project_name}.profile
 
   # Remove old Nexus files.
