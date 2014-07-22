@@ -4,7 +4,6 @@
 
 Version | Branch  | Drupal | Current Release | Prerequisites | Status
 ------- | ------  | ------ | --------------- | ------------- | ------
-Nexus 8 | [8.x](https://github.com/ryanarmstrong/nexus/tree/8.x) | [Dev](https://github.com/ryanarmstrong/nexus/archive/8.x.zip) | Drupal 8 (8.0-alpha3 by default) | PHP 5.4+, Drush 7+, MySQL 5.0.15+ | [![Build Status](https://travis-ci.org/ryanarmstrong/nexus.png?branch=8.x)](https://travis-ci.org/ryanarmstrong/nexus)
 Nexus 7 | [7.x](https://github.com/ryanarmstrong/nexus/tree/7.x) | [7.0.0](https://github.com/ryanarmstrong/nexus/archive/7.0.0.zip) | Drupal 7 (7.23 by default) | PHP 5.4+, Drush 6+, MySQL 5.0.15+ | [![Build Status](https://travis-ci.org/ryanarmstrong/nexus.png?branch=7.x)](https://travis-ci.org/ryanarmstrong/nexus)
 
 ## Installation
