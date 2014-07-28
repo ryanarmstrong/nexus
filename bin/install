@@ -14,77 +14,26 @@
 # -webroot somevalue
 #   The default webroot is 'www' but you can specifiy a different directory if
 #   desired.
-#
+# 
+# -credentials_dir somevalue
+#   The default location of the credentials.sh is 'bin/inc' but you can specifiy 
+#   a different directory if desired.
 
-# Include the header
-. bin/inc/header.sh
+# Includes
+. $(git rev-parse --show-toplevel)/bin/inc/header.sh
+. ${base_dir}/bin/inc/build.sh
+. ${base_dir}/bin/inc/install.sh
+. ${base_dir}/bin/inc/migrate.sh
+. ${base_dir}/bin/inc/test.sh
 
-# Delete the webroot directory. We want a fresh start.
-if [[ -d "${webroot}" ]] ; then
-  echo "- Removing ${webroot}"
-  rm -rf ${webroot_dir}
-fi
+# Build the webroot
+build
 
-# Build the site
-echo "--- Building Site ---"
-echo "- Webroot is set to: ${webroot}."
+# Install the site
+install
 
-# Download dependencies listed in composer.json
-echo "- Downloading dependencies via Composer."
-if [ ! -f composer.phar ]; then
-    curl -sS https://getcomposer.org/installer | php
-fi
+# Migrate the content
+migrate
 
-php composer.phar install
-
-# Download Drupal core, contrib and custom packages. This need to be aware of the -dev flag
-echo "- Downloading Drupal core, contrib, and custom via Drush Make."
-
-# Create the database
-echo "- Creating ${human_project_name} database"
-if [[ ! -z "`mysql -qfsBe "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${project_name}'" 2>&1`" ]];
-then
-  echo "- Database exists. Dropping and recreating."
-  mysql -e "drop database ${project_name};create database ${project_name};"
-else
-  mysql -e "create database ${project_name};"
-fi
-
-# Run Drush site install
-if [ "$development" == '1' ];
-  then
-    echo "- Installing ${human_project_name} in developer mode"
-    # Download Drupal core and contrib
-    drush make ${profile_dir}/build.make ${webroot} --working-copy -y
-
-    # Create the symbolic link to the project's profile
-    ln -s ${profile_dir} ${webroot_dir}/profiles/${project_name}
-
-    # Install the site
-    cd ${webroot_dir}
-    drush si ${project_name} --db-url=mysql://root:@localhost/${project_name} --yes
-
-    # Enabled modules that aid in development
-    drush en devel configuration_ui diff -y
-  else
-    echo "- Installing ${human_project_name} in production mode"
-    # Download the needed modules, themes, and libraries
-    drush make ${profile_dir}/build.make ${webroot} -y
-
-    # Create the symbolic link to the project's profile
-    ln -s ${profile_dir} ${webroot_dir}/profiles/${project_name}
-
-    # Install the site
-    cd ${webroot_dir}
-    drush si ${project_name} --db-url=mysql://root:@localhost/${project_name} --yes
-fi
-
-# Import Configuration
-drush csyn
-cd ${base_dir}
-. bin/config -import
-
-# Run tests
-echo "--- Running tests ---"
-cd ${base_dir}
-. bin/test
+# Run the tests
+test
