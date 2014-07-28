@@ -3,13 +3,6 @@
 webroot
 vendor
 
-# Ignore everything in bin but the needed scripts
-bin/*
-!bin/install
-!bin/init
-!bin/test
-!bin/inc
-
 composer.lock
 
 # Compiled source #
