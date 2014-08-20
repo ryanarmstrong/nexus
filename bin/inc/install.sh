@@ -29,7 +29,7 @@ install() {
   if [ "$development" == '1' ];
     then
       # Enable modules that aid in development
-      drush en devel devel_generate diff field_ui views migrate_ui link_css dblog tegrazone_developer_feature -y
+      drush en devel features devel_generate diff field_ui views migrate_ui link_css dblog tegrazone_developer_feature -y
 
       # Create test user accounts
       drush user-create ryanarmstrong
