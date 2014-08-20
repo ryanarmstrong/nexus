@@ -33,15 +33,19 @@ install() {
 
       # Create test user accounts
       drush user-create ryanarmstrong
+
       drush user-create test_administrator
+      drush role-create administrator
       drush user-add-role "administrator" --name=ryanarmstrong,test_administrator
 
       drush user-create test_authenticated_user
 
       drush user-create test_writer
+      drush role-create writer      
       drush user-add-role "writer" --name=test_writer
 
       drush user-create test_editor
+      drush role-create editor
       drush user-add-role "editor" --name=test_editor
   fi
 
