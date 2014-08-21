@@ -26,6 +26,13 @@ Rename ./bin/inc/example.credentials.sh to ./bin/inc/credentials.sh and modify t
 
 Run `./bin/init` (for dev, do `./bin/init -dev`). If you have any permissions issues, try running `sudo ./bin/init`. To rebuild the site run `./bin/install` or `sudo ./bin/install` if you run into permissions issues.
 
+
+### CLEAN URLS on Nginx
+
+Follow the instructions on this site to modify your nginx.conf
+https://www.drupal.org/node/976392
+
+
 ### Commands
 
 The following commands are available to help with setup, development, and testing. Make sure to read the commemnts in each script file to learn about the various flags and options you can use with them.
