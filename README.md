@@ -18,13 +18,20 @@ Nexus 7 | [7.x](https://github.com/ryanarmstrong/nexus/tree/7.x) | [7.0.0](https
 
 ### Installation
 
-Set your 
-
 Clone the repo giving it the name of your project `git clone git@github.com:ryanarmstrong/nexus.git yourprojectname`
 
 Set the project variables in ./bin/inc/header.sh
 
-Run `./bin/init`. If you have any permissions issues, try running `sudo ./bin/init`. To rebuild the site run `./bin/install` or `sudo ./bin/install` if you run into permissions issues.
+Rename ./bin/inc/example.credentials.sh to ./bin/inc/credentials.sh and modify the values so that they properly reflect your MySQL and Drupal credentials.
+
+Run `./bin/init` (for dev, do `./bin/init -dev`). If you have any permissions issues, try running `sudo ./bin/init`. To rebuild the site run `./bin/install` or `sudo ./bin/install` if you run into permissions issues.
+
+
+### CLEAN URLS on Nginx
+
+Follow the instructions on this site to modify your nginx.conf
+https://www.drupal.org/node/976392
+
 
 ### Commands
 
