@@ -6,7 +6,7 @@
 # or run independantly.
 
 # Project variables
-project_name="tegrazone"
-human_project_name="TegraZone"
+project_name="nexus"
+human_project_name="Nexus"
 webroot="webroot"
 assets="assets"
