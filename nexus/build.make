@@ -18,9 +18,9 @@ projects[drupal][version] = 7.26
 ; --------
 ; Include any modules that are hosted remotely.
 
-projects[configuration][version] = 2.x-dev
-projects[configuration][subdir] = contrib
-projects[configuration][type] = module
+projects[features][version] = 2.x-dev
+projects[features][subdir] = contrib
+projects[features][type] = module
 
 ; Development Modules
 projects[devel][version] = 1.3
