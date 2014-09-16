@@ -10,9 +10,6 @@ install() {
   fi
   . ${credentials_dir}/credentials.sh
 
-  # Include the Config functions
-  . ${base_dir}/bin/inc/config.sh
-
   # Create the database
   echo "- Creating ${human_project_name} database"
   if [[ ! -z "`mysql -u ${mysql_user} -qfsBe "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${project_name}'" 2>&1`" ]];
@@ -29,7 +26,7 @@ install() {
   if [ "$development" == '1' ];
     then
       # Enable modules that aid in development
-      drush en devel features devel_generate diff field_ui views migrate_ui link_css dblog tegrazone_developer_feature -y
+      drush en devel features devel_generate diff field_ui dblog -y
 
       # Create test user accounts
       drush user-create ryanarmstrong
@@ -48,11 +45,6 @@ install() {
       drush role-create editor
       drush user-add-role "editor" --name=test_editor
   fi
-
-  # Import Configuration
-  echo "- Importing configuration tables"
-  cd ${webroot_dir}
-  $(drush sql-connect) < ../configuration/configuration.sql
 
   # Cleanup
   cd ${webroot_dir}

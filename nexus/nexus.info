@@ -11,7 +11,7 @@ theme = bartik
 ; dependencies[] = example
 
 ; Contrib
-dependencies[] = configuration
+dependencies[] = features
 
 ; Custom
 ; dependencies[] = example

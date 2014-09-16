@@ -12,6 +12,5 @@
  * @see system_install()
  */
 function nexus_install() {
-  // Set the configuration directory to a place outside of the webroot.
-  variable_set('configuration_config_path', '../configuration');
+
 }
