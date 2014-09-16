@@ -20,8 +20,16 @@ install() {
     mysql --host=${mysql_host} --user=${mysql_user} --password=${mysql_password} -e "create database ${project_name};"
   fi
 
+  # Install Drupal
   cd ${webroot_dir}
   drush si ${project_name} --db-url=mysql://${mysql_user}:${mysql_password}@${mysql_host}/${project_name} --account-pass=${drupal_admin_password} --yes
+
+  # Add any custom settings
+  if [ ${profile_dir}/settings.php ]; then
+    chmod 777 ${webroot_dir}/sites/default/settings.php
+    cat ${profile_dir}/settings.php >> ${webroot_dir}/sites/default/settings.php
+    chmod 644 ${webroot_dir}/sites/default/settings.php
+  fi
 
   if [ "$development" == '1' ];
     then
