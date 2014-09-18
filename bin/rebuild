@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# rebuild script
+#
+# This script rebuilds the webroot but preserves an existing site.
+
+# Includes
+. $(git rev-parse --show-toplevel)/bin/inc/header.sh
+. ${base_dir}/bin/inc/build.sh
+. ${base_dir}/bin/inc/test.sh
+
+# Check for an existing site and save it.
+if [ -f ${webroot_dir}/sites/default/settings.php ]; then
+  echo "- Existing site detected. Backing up settings.php and files."
+  mkdir ${base_dir}/backup
+  mv ${webroot_dir}/sites/default/settings.php ${base_dir}/backup/settings.php
+fi
+if [[ -d "${webroot_dir}/sites/default/files" ]]; then
+  echo "- Found files directory. Backing up."
+  mv ${webroot_dir}/sites/default/files ${base_dir}/backup
+fi
+
+# Build the webroot
+build
+
+# Check for an existing site and save it.
+if [ -f ${base_dir}/backup/settings.php ]; then
+  echo "- Restoring settings.php."
+  mv ${base_dir}/backup/settings.php ${webroot_dir}/sites/default/settings.php
+fi
+if [[ -d "${base_dir}/backup/files" ]]; then
+  echo "- Restoring files directory."
+  mv ${base_dir}/backup/files ${webroot_dir}/sites/default
+fi
+if [[ -d "${base_dir}/backup" ]]; then
+  rm -rf ${base_dir}/backup
+fi
+
+# Run the tests
+test
